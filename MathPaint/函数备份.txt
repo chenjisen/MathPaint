@@ -1,0 +1,33 @@
+﻿        /// <summary>
+        /// 颜色图案
+        /// </summary>
+        private int ColorPattern(int wx, int wy)
+        {
+            //return (int)(Math.Pow(wx - WWidth / 2, 2) + Math.Pow(wy - WHeight / 2, 2));
+            return wx + wy;
+        }
+        private int ColorPattern(int n)
+        {
+            return n;
+        }
+
+        /// <summary>
+        /// 得到0~1之间的数
+        /// z=max时返回值小于1
+        /// </summary>
+        /*
+        private double RepeatsToHue(double z, int max, int min)
+        {
+            if (z > max) return 1;
+            if (z < min) return 0;
+            if (z == min) return 0.001;
+            int[] a = { min, 16, 24, 38, 66, max + 1 };
+            for (int i = 0; i <= 4; ++i)
+            {
+                if (z > a[i] && z <= a[i + 1])
+                    return (i + (z - a[i]) / (a[i + 1] - a[i])) / 5.0;
+            }
+            return 0;
+        }*/
+
+

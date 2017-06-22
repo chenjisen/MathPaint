@@ -1,0 +1,91 @@
+﻿        /// <summary>
+        /// 绘制函数
+        /// </summary>
+        private void pictureBox1_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        {
+
+            Bitmap bmp = new Bitmap(WWidth, WHeight);
+
+            // Create a local version of the graphics object for the PictureBox.
+            Graphics g = e.Graphics;
+
+
+            
+            //选出合适的点列
+
+            double dx, dy;
+            dx = (xmax - xmin) / WWidth;
+            dy = (ymax - ymin) / WHeight;
+            if (dx > dy)
+            {
+                dx = dy;
+                double dxm = (xmax - xmin - WWidth * dx) / 2;
+                xmin += dxm;
+                xmax -= dxm;
+            }
+            if (dx < dy)
+            {
+                dy = dx;
+                double dym = (ymax - ymin - WHeight * dy) / 2;
+                ymin -= dym;
+                ymax += dym;
+            }
+            ChangeText();
+
+
+            //通过循环开始判断与绘制点
+            Complex c, z;
+            int wx, wy;
+            Pen p;
+            for (wy = 0; wy <= WHeight; ++wy)
+            {
+                for (wx = 0; wx <= WWidth; ++wx)
+                {
+                    //判断点是否属于集合
+                    c = new Complex(xmin + dx * wx, ymin + dy * wy);  //x=xmin+dx*wx, y=ymin+dy*wy
+                    z = Complex.Zero;
+                    int repeats = 0;
+                    do
+                    {
+                        z = z * z + c;
+                        ++repeats;
+                    } while (z.Magnitude <= 2 && repeats <= MaxRepeats);
+                    
+                    //绘制点
+                    if (repeats > MaxRepeats)
+                        p = CorePen;
+                    else if (repeats <= BGRepeats)
+                        p = new Pen(HueToColor(zToHue(ColorPattern(wx, wy), ColorPattern(WWidth, WHeight), 0, 0)));
+                    else
+                        p = new Pen(HueToColor(zToHue(repeats, MaxRepeats + 1, BGRepeats + 1, 'a')));  
+                    g.DrawLine(p, wx, wy, wx + 1, wy);
+                    
+
+                }
+            }
+
+            //绘制坐标
+            Font drawFont = new Font("Arial", 12);
+            SolidBrush drawBrush = new SolidBrush(Color.Blue);
+            double x, y;
+            string str;
+            for (wx = 0; wx <= WWidth; wx += 100)
+            {
+                x = xmin + dx * wx;
+                str = x.ToString();
+                if (str.Length > 5) str = str.Substring(0, 5);
+                g.DrawString(str, drawFont, drawBrush, wx, 0);
+            }
+
+            for (wy = 0; wy <= WHeight; wy += 100)
+            {
+                y = ymin + dy * wy;
+                str = y.ToString();
+                if (str.Length > 5) str = str.Substring(0, 5);
+                g.DrawString(str, drawFont, drawBrush, 0, wy);
+            }
+            
+
+            
+            
+        }

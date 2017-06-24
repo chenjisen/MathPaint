@@ -35,30 +35,30 @@
 
             //通过循环开始判断与绘制点
             Complex c, z;
-            int wx, wy;
+            int px, py;
             Pen p;
-            for (wy = 0; wy <= WHeight; ++wy)
+            for (py = 0; py <= WHeight; ++py)
             {
-                for (wx = 0; wx <= WWidth; ++wx)
+                for (px = 0; px <= WWidth; ++px)
                 {
                     //判断点是否属于集合
-                    c = new Complex(xmin + dx * wx, ymin + dy * wy);  //x=xmin+dx*wx, y=ymin+dy*wy
+                    c = new Complex(xmin + dx * px, ymin + dy * py);  //x=xmin+dx*px, y=ymin+dy*py
                     z = Complex.Zero;
-                    int repeats = 0;
+                    int iterations = 0;
                     do
                     {
                         z = z * z + c;
-                        ++repeats;
-                    } while (z.Magnitude <= 2 && repeats <= MaxRepeats);
+                        ++iterations;
+                    } while (z.Magnitude <= 2 && iterations <= MaxIterations);
                     
                     //绘制点
-                    if (repeats > MaxRepeats)
+                    if (iterations > MaxIterations)
                         p = CorePen;
-                    else if (repeats <= BGRepeats)
-                        p = new Pen(HueToColor(zToHue(ColorPattern(wx, wy), ColorPattern(WWidth, WHeight), 0, 0)));
+                    else if (iterations <= BGIterations)
+                        p = new Pen(HueToColor(zToHue(ColorPattern(px, py), ColorPattern(WWidth, WHeight), 0, 0)));
                     else
-                        p = new Pen(HueToColor(zToHue(repeats, MaxRepeats + 1, BGRepeats + 1, 'a')));  
-                    g.DrawLine(p, wx, wy, wx + 1, wy);
+                        p = new Pen(HueToColor(zToHue(iterations, MaxIterations + 1, BGIterations + 1, 'a')));  
+                    g.DrawLine(p, px, py, px + 1, py);
                     
 
                 }
@@ -69,20 +69,20 @@
             SolidBrush drawBrush = new SolidBrush(Color.Blue);
             double x, y;
             string str;
-            for (wx = 0; wx <= WWidth; wx += 100)
+            for (px = 0; px <= WWidth; px += 100)
             {
-                x = xmin + dx * wx;
+                x = xmin + dx * px;
                 str = x.ToString();
                 if (str.Length > 5) str = str.Substring(0, 5);
-                g.DrawString(str, drawFont, drawBrush, wx, 0);
+                g.DrawString(str, drawFont, drawBrush, px, 0);
             }
 
-            for (wy = 0; wy <= WHeight; wy += 100)
+            for (py = 0; py <= WHeight; py += 100)
             {
-                y = ymin + dy * wy;
+                y = ymin + dy * py;
                 str = y.ToString();
                 if (str.Length > 5) str = str.Substring(0, 5);
-                g.DrawString(str, drawFont, drawBrush, 0, wy);
+                g.DrawString(str, drawFont, drawBrush, 0, py);
             }
             
 

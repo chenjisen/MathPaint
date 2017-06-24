@@ -10,7 +10,8 @@ namespace MathPaint
     abstract class SetImage
     {
         protected readonly double xmin, xmax, ymin, ymax, xcenter, ycenter;
-        public readonly Bitmap bmp;
+
+        private Bitmap bmp;
 
         protected const int WWidth = Form1.WWidth;
         protected const int WHeight = Form1.WHeight;
@@ -20,16 +21,14 @@ namespace MathPaint
         /// <summary>
         /// 构造函数
         /// </summary>
-        protected SetImage(double xmin0, double xmax0, double ymin0, double ymax0)
+        protected SetImage(double xmin, double xmax, double ymin, double ymax)
         {
-            xmin = xmin0;
-            xmax = xmax0;
-            ymin = ymin0;
-            ymax = ymax0;
-            xcenter = (xmin0 + xmax0) / 2;
-            ycenter = (ymin0 + ymax0) / 2;
-
-            bmp = DrawImage();
+            this.xmin = xmin;
+            this.xmax = xmax;
+            this.ymin = ymin;
+            this.ymax = ymax;
+            xcenter = (xmin + xmax) / 2;
+            ycenter = (ymin + ymax) / 2;
         }
 
     }

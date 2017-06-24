@@ -48,18 +48,18 @@ namespace MathPaint
 
             double dx = (xmax - xmin) / WWidth;
             double dy = (ymax - ymin) / WHeight;
-            for (int wx = 0; wx <= WWidth; wx += 100) {
-                x = xmin + dx * wx;
+            for (int px = 0; px <= WWidth; px += 100) {
+                x = xmin + dx * px;
                 str = x.ToString();
                 if (str.Length > 5) str = str.Substring(0, 5);
-                g.DrawString(str, drawFont, drawBrush, wx, 0);
+                g.DrawString(str, drawFont, drawBrush, px, 0);
             }
 
-            for (int wy = 0; wy <= WHeight; wy += 100) {
-                y = ymin + dy * wy;
+            for (int py = 0; py <= WHeight; py += 100) {
+                y = ymin + dy * py;
                 str = y.ToString();
                 if (str.Length > 5) str = str.Substring(0, 5);
-                g.DrawString(str, drawFont, drawBrush, 0, wy);
+                g.DrawString(str, drawFont, drawBrush, 0, py);
             }
 
         }

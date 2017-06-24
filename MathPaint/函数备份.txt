@@ -1,10 +1,10 @@
 ﻿        /// <summary>
         /// 颜色图案
         /// </summary>
-        private int ColorPattern(int wx, int wy)
+        private int ColorPattern(int px, int py)
         {
-            //return (int)(Math.Pow(wx - WWidth / 2, 2) + Math.Pow(wy - WHeight / 2, 2));
-            return wx + wy;
+            //return (int)(Math.Pow(px - WWidth / 2, 2) + Math.Pow(py - WHeight / 2, 2));
+            return px + py;
         }
         private int ColorPattern(int n)
         {
@@ -16,7 +16,7 @@
         /// z=max时返回值小于1
         /// </summary>
         /*
-        private double RepeatsToHue(double z, int max, int min)
+        private double IterationsToHue(double z, int max, int min)
         {
             if (z > max) return 1;
             if (z < min) return 0;
@@ -30,4 +30,20 @@
             return 0;
         }*/
 
+		        /// <summary>
+        /// 使用柱状图法
+        /// 得到0~1之间的数
+        /// </summary>
+        private double IterationsToHue(int iterations, int[] histogram)
+        {
+            double total = 0;
+            double hue = 0;
+            int i;
+            for (i = BGIterations; i < MaxIterations; ++i)
+                total += histogram[i];
 
+            for (i = BGIterations; i < iterations; ++i)
+                hue += histogram[i] / total;
+
+            return hue;
+        }

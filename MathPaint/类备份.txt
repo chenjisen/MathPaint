@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Drawing;
+
+namespace MathPaint
+{
+    abstract class SetImage
+    {
+        private readonly double xmin, xmax, ymin, ymax;
+
+        private readonly Bitmap bmp;
+
+        protected const int WWidth = Form1.WWidth;
+        protected const int WHeight = Form1.WHeight;
+
+        //protected abstract Bitmap DrawImage();
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        private SetImage(double xmin, double xmax, double ymin, double ymax)
+        {
+            this.xmin = xmin;
+            this.xmax = xmax;
+            this.ymin = ymin;
+            this.ymax = ymax;
+
+        }
+
+        /// <summary>
+        /// 解决继承问题
+        /// </summary>
+        protected SetImage() { }
+
+    }
+}

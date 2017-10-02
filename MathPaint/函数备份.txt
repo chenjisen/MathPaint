@@ -1,0 +1,71 @@
+﻿        /// <summary>
+        /// 颜色图案
+        /// </summary>
+        private int ColorPattern(int px, int py)
+        {
+            //return (int)(Math.Pow(px - WWidth / 2, 2) + Math.Pow(py - WHeight / 2, 2));
+            return px + py;
+        }
+        private int ColorPattern(int n)
+        {
+            return n;
+        }
+
+        /// <summary>
+        /// 得到0~1之间的数
+        /// z=max时返回值小于1
+        /// </summary>
+        /*
+        private double IterationsToHue(double z, int max, int min)
+        {
+            if (z > max) return 1;
+            if (z < min) return 0;
+            if (z == min) return 0.001;
+            int[] a = { min, 16, 24, 38, 66, max + 1 };
+            for (int i = 0; i <= 4; ++i)
+            {
+                if (z > a[i] && z <= a[i + 1])
+                    return (i + (z - a[i]) / (a[i + 1] - a[i])) / 5.0;
+            }
+            return 0;
+        }*/
+
+		        /// <summary>
+        /// 使用柱状图法
+        /// 得到0~1之间的数
+        /// </summary>
+        private double IterationsToHue(int iterations, int[] histogram)
+        {
+            double total = 0;
+            double hue = 0;
+            int i;
+            for (i = BGIterations; i < MaxIterations; ++i)
+                total += histogram[i];
+
+            for (i = BGIterations; i < iterations; ++i)
+                hue += histogram[i] / total;
+
+            return hue;
+        }
+		        /// <summary>
+        /// 得到0~1之间的数
+        /// </summary>
+        public static double NormalizeIterations(int iterations, int max, int min)
+        {
+            //double max = MaxIterations + 1;
+            //double min = BGIterations + 1;
+            if (iterations > max) return 1;
+            if (iterations < min) return 0;
+            return (iterations - min) / (max - min);
+        }
+
+        ///// <summary>
+        ///// 改变文本框里的数
+        ///// </summary>
+        //private void ChangeText()
+        //{
+        //    textBoxXMin.Text = xmin.ToString();
+        //    textBoxXMax.Text = xmax.ToString();
+        //    textBoxYMin.Text = ymin.ToString();
+        //    textBoxYMax.Text = ymax.ToString();
+        //}
